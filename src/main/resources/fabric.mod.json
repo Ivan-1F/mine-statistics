@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "template_mod",
+  "version": "${version}",
+
+  "name": "template_mod",
+  "description": "",
+  "authors": [
+    "Ivan1F"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/",
+    "sources": "https://github.com/"
+  },
+
+  "icon": "assets/template_mod/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "me.ivan1f.template_mod.TemplateMod"
+    ]
+  },
+  "mixins": [
+    "template_mod.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.1",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}
