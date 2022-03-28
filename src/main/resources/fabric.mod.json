@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "template_mod",
+  "id": "mine-statistics",
   "version": "${version}",
 
-  "name": "template_mod",
+  "name": "Mine Statics",
   "description": "",
   "authors": [
     "Ivan1F"
@@ -13,16 +13,16 @@
     "sources": "https://github.com/"
   },
 
-  "icon": "assets/template_mod/icon.png",
+  "icon": "assets/mine-statistics/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "me.ivan1f.template_mod.TemplateMod"
+      "me.ivan1f.minestatistics.MineStatisticsMod"
     ]
   },
   "mixins": [
-    "template_mod.mixins.json"
+    "minestatistics.mixins.json"
   ],
 
   "depends": {

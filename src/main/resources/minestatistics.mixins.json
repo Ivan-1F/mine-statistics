@@ -1,10 +1,12 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "me.ivan1f.template_mod.mixins",
+  "package": "me.ivan1f.minestatistics.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "MinecraftServerMixin"
+    "BlockMixin",
+    "StatsAccessor",
+    "StatsMixin"
   ],
   "client": [
   ],
