@@ -12,36 +12,13 @@ on:
 
 
 jobs:
-  matrix_prep:
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.setmatrix.outputs.matrix }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: 'Display current branch/tag name'
-        run: echo ${{ github.ref_name }}
-
-      - id: setmatrix
-        uses: JoshuaTheMiller/conditional-build-matrix@0.0.1
-        with:
-          # inputFile: '.github/workflows/matrix_includes.json' # Default input file path
-          filter: '[? `${{ github.event_name }}` == `release` || `${{ github.ref_name }}` == branch]'
-
-      - name: 'Print matrix'
-        run: echo ${{ steps.setmatrix.outputs.matrix }}
-
   release:
-    needs: matrix_prep
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix: ${{fromJson(needs.matrix_prep.outputs.matrix)}}
 
     steps:
       - uses: actions/checkout@v2
         with:
-          ref: ${{ matrix.branch }}
+          ref: master
       - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
@@ -69,7 +46,7 @@ jobs:
       - name: Upload to action artifact
         uses: actions/upload-artifact@v2
         with:
-          name: '[${{ matrix.branch }}] build-artifacts'
+          name: 'build-artifacts'
           path: build/libs/
 
       - name: Get github release information
@@ -102,13 +79,6 @@ jobs:
           path: gradle.properties
           property: mod_version
 
-      - name: Read Properties minecraft_version
-        id: minecraft_version
-        uses: christian-draeger/read-properties@1.0.1
-        with:
-          path: gradle.properties
-          property: minecraft_version
-
       - name: Publish Minecraft Mods
         uses: Kir-Antipov/mc-publish@v2.1
         with:
@@ -124,13 +94,18 @@ jobs:
           files-primary: build/libs/!(*-@(dev|sources)).jar
           files-secondary: ''
 
-          name: ${{ format('MineStatistics v{0} for mc{1}', steps.mod_version.outputs.value, steps.minecraft_version.outputs.value) }}
-          version: ${{ format('mc{0}-v{1}', steps.minecraft_version.outputs.value, steps.mod_version.outputs.value) }}
+          name: ${{ format('MineStatistics v{0} universal', steps.mod_version.outputs.value) }}
+          version: ${{ format('v{1} universal', steps.mod_version.outputs.value) }}
           version-type: release
           changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)
 
           loaders: fabric
-          game-versions: ${{ matrix.game_versions }}
+          game-versions: |
+            1.14.4
+            1.15.2
+            1.16.5
+            1.17.1
+            1.18.2
           version-resolver: exact
 
           retry-attempts: 3
