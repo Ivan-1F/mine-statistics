@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class MineStatisticsRegistry {
     private static final Set<Identifier> STATS_SET = Sets.newLinkedHashSet();
-    public static final Identifier MINE_ALL = register("mine_all", StatFormatter.DEFAULT);
+    public static final Identifier MINE_ALL = register("mined_all", StatFormatter.DEFAULT);
 
     // From net.minecraft.stat.Stats#register
     private static Identifier register(String name, StatFormatter statFormatter) {
