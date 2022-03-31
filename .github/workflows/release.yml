@@ -94,7 +94,7 @@ jobs:
           files-primary: build/libs/!(*-@(dev|sources)).jar
           files-secondary: ''
 
-          name: ${{ format('MineStatistics v{0} universal', steps.mod_version.outputs.value) }}
+          name: ${{ format('Mine Statistics v{0} universal', steps.mod_version.outputs.value) }}
           version: ${{ format('v{0}', steps.mod_version.outputs.value) }}
           version-type: release
           changelog: ${{ format('{0}{1}', github.event.release.body, steps.get_release.outputs.body) }}  # one of them should be an empty string (null)
